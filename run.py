@@ -79,3 +79,37 @@ def check_boat(b,start,dirn,ship_position):
             boat.append(start - i)
     boat = check_ok(boat,ship_position)           
     return boat  
+
+def create_boats(ship_position,battleships):
+    """
+    creates a random boat whit random direction
+    """
+    ships = []
+    for b in battleships:
+        boat = [-1]
+        while boat[0] == -1:
+            boat_start = randrange(99)
+            boat_direction = randrange(1,4)
+            boat = check_boat(b,boat_start,boat_direction,ship_position)
+        ships.append(boat)
+        ship_position = ship_position + boat
+    
+    return ships,ship_position
+
+def show_board_c(ai_ship_position):
+    print("\n-----------battleships-----------\n")
+    print("     0  1  2  3  4  5  6  7  8  9")
+    """
+    shows the board you made
+    """
+    place = 0
+    for x in range(10):
+        row = ""
+        for y in range(10):
+            ch = " _ "
+            if place in ai_ship_position:
+                ch = " o "   
+            row = row + ch
+            place = place + 1
+            
+        print(x," ",row)
