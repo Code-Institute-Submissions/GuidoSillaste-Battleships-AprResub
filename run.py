@@ -243,3 +243,63 @@ def check_if_empty_2(list_of_lists):
     checks if player has no ships left and computer won
     """
     return all([not elem for elem in list_of_lists ])
+
+#before game
+def startgame():
+    """
+    main  variables
+    """
+    player_hit = []
+    player_miss = []
+    ships_sunk= []
+    player_shots_fired = []  
+    missed1 = 0
+    tactics1 = []
+    ship_position = []
+    ship_position_ai = []
+    ai_hit = []
+    ai_miss = []
+    ai_ships_sunk = []
+    ai_shots_fired = []  
+    missed2 = 0
+    tactics2 = []
+
+    battleships = [5,4,3,3,2,2]
+    # game amount of ships
+    #computer creates a board for player 1
+    ships1,ship_position = create_boats(ship_position,battleships)
+    #user creates the board for player 2 - show board
+    ships2,ship_position_ai = create_ships(ship_position_ai,battleships)
+    show_board_c(ship_position_ai)
+
+    #loop
+    for i in range(80):
+
+    #player shoots
+        player_shots_fired = player_hit + player_miss + ships_sunk
+        shot1 = get_shot(player_shots_fired)
+        ships1,player_hit,player_miss,ships_sunk,missed1 = check_shot(shot1,ships1,player_hit,player_miss,ships_sunk)
+        show_board(player_hit,player_miss,ships_sunk)
+    #repeat until ships empty
+        if check_if_empty_2(ships1):
+            print("end of game - winner in",i)
+            break    
+    #computer shoots
+    
+        shot2,ai_shots_fired = get_shot_comp(ai_shots_fired,tactics2)
+        ships2,ai_hit,ai_miss,ai_ships_sunk,missed2 = check_shot(shot2,ships2,ai_hit,ai_miss,ai_ships_sunk)
+        show_board(ai_hit,ai_miss,ai_ships_sunk)
+        
+        if missed2 == 1:
+            tactics2 = calc_tactics(shot2,tactics2,ai_shots_fired,ai_hit)
+        elif missed2 == 2:
+            tactics2 = []
+        elif len(tactics2) > 0:
+            tactics2.pop(0)
+
+        if check_if_empty_2(ships2):
+            print("end of game - computer wins",i)
+            break
+        
+
+startgame()        
