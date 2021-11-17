@@ -72,3 +72,4 @@ This project was deployed on heroku whit code institute javascript and nodej.
 - My own childhood where i played the game a lot
 - lots of slackoverflow(was not very usefull) reading
 - gitpod projects to see how python classes work(could not find a basic class one)
+- especially a single youtube videos
