@@ -1,7 +1,8 @@
 from random import randrange
 import random
 
-def check_ok(boat,ship_position):
+def check_ok(boat, ship_position):
+
     """
     Checks if it is taken,if it is in the grid and returns it if ok
     """
@@ -25,9 +26,11 @@ def check_ok(boat,ship_position):
 
     return boat
 
-def get_ship(long,ship_position):
+def get_ship(long, ship_position):
     """
-    Shows the length of the ship you need to set and asks for its spot while checking if ok later.If not ok it repeats untill the current length is ok and then stores itin ship_position
+    Shows the length of the ship you need to set and asks for its spot while 
+    checking if ok later.If not ok it repeats untill the current length is ok 
+    and then stores itin ship_position
     """
     ok = True
     while ok:      
@@ -39,28 +42,28 @@ def get_ship(long,ship_position):
             boat_num = input("\nplease enter a number")
             ship.append(int(boat_num))       
         #check that ship
-        ship = check_ok(ship,ship_position)
+        ship = check_ok(ship, ship_position)
         if ship[0] != -1:
             ship_position = ship_position + ship
             break
         else:
            print("error - please try again") 
         
-    return ship,ship_position
-
-def create_ships(ship_position,battleships):
+    return ship, ship_position
+        
+def create_ships(ship_position, battleships):
     """
     gives the length of ships from battleships
     """
     ships = []
     
     for boat in battleships:
-        ship,ship_position = get_ship(boat,ship_position)
+        ship, ship_position = get_ship(boat, ship_position)
         ships.append(ship)
         
-    return ships,ship_position
+    return ships, ship_position
 
-def check_boat(b,start,dirn,ship_position):
+def check_boat(b, start, dirn, ship_position):
     """
     sets a random direction for boats
     """
@@ -77,10 +80,10 @@ def check_boat(b,start,dirn,ship_position):
     elif dirn == 4:
         for i in range(b):
             boat.append(start - i)
-    boat = check_ok(boat,ship_position)           
+    boat = check_ok(boat, ship_position)           
     return boat  
 
-def create_boats(ship_position,battleships):
+def create_boats(ship_position, battleships):
     """
     creates a random boat whit random direction
     """
@@ -90,11 +93,11 @@ def create_boats(ship_position,battleships):
         while boat[0] == -1:
             boat_start = randrange(99)
             boat_direction = randrange(1,4)
-            boat = check_boat(b,boat_start,boat_direction,ship_position)
+            boat = check_boat(b, boat_start, boat_direction, ship_position)
         ships.append(boat)
         ship_position = ship_position + boat
     
-    return ships,ship_position
+    return ships, ship_position
 
 def show_board_c(ai_ship_position):
     print("\n-----------battleships-----------\n")
@@ -114,7 +117,7 @@ def show_board_c(ai_ship_position):
             
         print(x," ",row)
 
-def get_shot_comp(guesses,tactics):
+def get_shot_comp(guesses, tactics):
     """
     gives a random shot for ai
     """
@@ -132,9 +135,9 @@ def get_shot_comp(guesses,tactics):
         except:
             print("incorrect entry - please enter again")
             
-    return shot,guesses  
+    return shot, guesses
 
-def show_board(hit,miss,comp):
+def show_board(hit, miss, comp):
     print("\n-----------battleships-----------\n")
     print("     0  1  2  3  4  5  6  7  8  9")
     """
@@ -156,7 +159,7 @@ def show_board(hit,miss,comp):
             
         print(x," ",row)
 
-def check_shot(shot,ships,hit,miss,comp):
+def check_shot(shot, ships, hit, miss, comp):
     """
     checks if you missed or hit a boat or destroyed one
     """
@@ -173,20 +176,20 @@ def check_shot(shot,ships,hit,miss,comp):
     if missed == 0:
         miss.append(shot)
                 
-    return ships,hit,miss,comp,missed    
+    return ships, hit, miss, comp, missed
 
-def calc_tactics(shot,tactics,guesses,hit):
+def calc_tactics(shot, tactics, guesses, hit):
     
     """
     increased computer difficulty playsa bit smarter
     """
     temp = []
     if len(tactics) < 1:
-        temp = [shot-1,shot+1,shot-10,shot+10]
+        temp = [shot-1, shot+1, shot-10, shot+10]
     else:
         if shot-1 in hit:
             temp = [shot+1]
-            for num in [2,3,4,5,6,7,8]:
+            for num in [2, 3, 4, 5, 6, 7, 8]:
                 if shot-num not in hit:
                     temp.append(shot-num) 
                     break 
@@ -215,7 +218,7 @@ def calc_tactics(shot,tactics,guesses,hit):
             computer_shot.append(temp[i])
     random.shuffle(computer_shot)
     
-    return computer_shot   
+    return computer_shot
 
 def get_shot(guesses):
     """
@@ -243,6 +246,7 @@ def check_if_empty_2(list_of_lists):
     checks if player has no ships left and computer won
     """
     return all([not elem for elem in list_of_lists ])
+
 
 #before game
 def startgame():

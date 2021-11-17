@@ -1,31 +1,74 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# BAD BATTLESHIP GAME
 
-Welcome GuidoSillaste,
+Bad Battleship Game is python terminal game which i ran in code institute mock terminal in heroku. Was not shown how the javascript works on it so cant change it.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+User have to first set all battleships on the board.Each battleship is diffrent size and direction for your board and computers.
 
-## Reminders
+## how to play
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+Game start of with you placing the ships.
 
-## Creating the Heroku app
+Once placed you are shown your board and you can start shooting the enemy by writing a number from 00 to 99.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+Missed shots are X and hit ships are O.
 
-1. `heroku/python`
-2. `heroku/nodejs`
+Once all ships sank for either you or computer the game is over.
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+## Features
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+Few exsisting features:
 
-Connect your GitHub repository and deploy as normal.
+- You can choose your board
+- Computer board is generated randomly
+- ships are hidden
+- can only play against computer
+- Accepts user input
+- input validation error
+  - if number 2 big or not a number
+  - can not enter same number on either ship placing or shooting
 
-## Constraints
+### Future features
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+- turn to class based
+- add secound player
+- show scores
+- show if ship is sunk and if you hit it
+- Create better UI
 
------
-Happy coding!
+## Data Model
+
+Basic def, while, if, for, try and variable combo.
+
+## Testing
+
+Had to waste 3 days to get python to work on computer
+
+17 days of nightmarish bugs and relearning and then repeating while being all alone whit no help.
+
+2 many errors every last function was like hell other then the if,elif and else
+
+None of the bugs i tried to fix were fixed
+
+No code breaking bugs remain
+
+### Validator testing
+
+- PEP8
+ - contained lots of trailing whitespace that did not show up on visualstudio 
+## Deployment
+
+This project was deployed on heroku whit code institute javascript and nodej.
+
+- Fork orclone this repository
+- Create a new heroku app
+- set the var PORT value 8000
+- set the buildbacks to python and nodejs
+- link heroku app to the repository
+- click on deploy
+
+## Credits
+
+- Youtube for training videos on how to make projects
+- My own childhood where i played the game a lot
+- lots of slackoverflow(was not very usefull) reading
+- gitpod projects to see how python classes work(could not find a basic class one)
