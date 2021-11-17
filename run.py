@@ -215,4 +215,31 @@ def calc_tactics(shot,tactics,guesses,hit):
             computer_shot.append(temp[i])
     random.shuffle(computer_shot)
     
-    return computer_shot         
+    return computer_shot   
+
+def get_shot(guesses):
+    """
+    gets your shot and checks if correct
+    """
+    ok = "n"
+    while ok == "n":
+        try:
+            shot = input("\nplease enter your guess")
+            shot = int(shot)
+            if shot < 0 or shot > 99:
+                print("incorrect number, shot is outside the board")
+            elif shot in guesses:
+                print("incorrect number, used before")                
+            else:
+                ok = "y"
+                break
+        except:
+            print("incorrect entry - please enter again")
+            
+    return shot
+
+def check_if_empty_2(list_of_lists):
+    """
+    checks if player has no ships left and computer won
+    """
+    return all([not elem for elem in list_of_lists ])
