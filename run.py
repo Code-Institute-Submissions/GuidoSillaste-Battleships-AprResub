@@ -47,3 +47,35 @@ def get_ship(long,ship_position):
            print("error - please try again") 
         
     return ship,ship_position
+
+def create_ships(ship_position,battleships):
+    """
+    gives the length of ships from battleships
+    """
+    ships = []
+    
+    for boat in battleships:
+        ship,ship_position = get_ship(boat,ship_position)
+        ships.append(ship)
+        
+    return ships,ship_position
+
+def check_boat(b,start,dirn,ship_position):
+    """
+    sets a random direction for boats
+    """
+    boat = []
+    if dirn == 1:
+        for i in range(b):
+            boat.append(start - i*10)
+    elif dirn == 2:
+        for i in range(b):
+            boat.append(start + i)
+    elif dirn == 3:
+        for i in range(b):
+            boat.append(start + i*10)
+    elif dirn == 4:
+        for i in range(b):
+            boat.append(start - i)
+    boat = check_ok(boat,ship_position)           
+    return boat  
