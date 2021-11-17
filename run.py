@@ -113,3 +113,64 @@ def show_board_c(ai_ship_position):
             place = place + 1
             
         print(x," ",row)
+
+def get_shot_comp(guesses,tactics):
+    """
+    gives a random shot for ai
+    """
+    ok = "n"
+    while ok == "n":
+        try:
+            if len(tactics) > 0:
+                shot = tactics[0]
+            else:
+                shot = randrange(99)
+            if shot not in guesses:
+                ok = "y"
+                guesses.append(shot)
+                break
+        except:
+            print("incorrect entry - please enter again")
+            
+    return shot,guesses  
+
+def show_board(hit,miss,comp):
+    print("\n-----------battleships-----------\n")
+    print("     0  1  2  3  4  5  6  7  8  9")
+    """
+    hidden board for you and computer
+    """
+    place = 0
+    for x in range(10):
+        row = ""
+        for y in range(10):
+            ch = " _ "
+            if place in miss:
+                ch = " x " 
+            elif place in hit:
+                ch = " o "
+            elif place in comp:
+                ch = " O "   
+            row = row + ch
+            place = place + 1
+            
+        print(x," ",row)
+
+def check_shot(shot,ships,hit,miss,comp):
+    """
+    checks if you missed or hit a boat or destroyed one
+    """
+    missed = 0
+    for i in range(len(ships)):      
+        if shot in ships[i]:
+            ships[i].remove(shot)
+            if len(ships[i]) > 0:
+                hit.append(shot)
+                missed = 1
+            else:
+                comp.append(shot)
+                missed = 2                              
+    if missed == 0:
+        miss.append(shot)
+                
+    return ships,hit,miss,comp,missed          
