@@ -1,4 +1,6 @@
-"Starting imports"
+"""
+Starting imports, does not work for some reason if one is removed
+"""
 from random import randrange
 import random
 
@@ -29,7 +31,7 @@ def check_ok(boat, ship_position):
     return boat
 
 
-def get_ship(long, ship_position):
+def manual_ship_placement_ship(long, ship_position):
     """
     Shows the length of the ship you need to set and asks for its spot while
     checking if ok later.If not ok it repeats untill the current length is ok
@@ -42,8 +44,9 @@ def get_ship(long, ship_position):
         print("\nPlace your ships\n")
         print("enter your ship of length ", long)
         for i in range(long):
-            boat_num = input("\nplease enter a number")
+            boat_num = input("\nPlease enter a number from 00 - 99\n")
             ship.append(int(boat_num))
+            show_board_c(ship)
         # check that ship
         ship = check_ok(ship, ship_position)
         if ship[0] != -1:
@@ -61,8 +64,9 @@ def create_ships(ship_position, battleships):
     """
     ships = []
 
-    for boat in battleships:
-        ship, ship_position = get_ship(boat, ship_position)
+    for boat_length in battleships:
+        ship, ship_position = manual_ship_placement_ship(
+            boat_length, ship_position)
         ships.append(ship)
 
     return ships, ship_position
@@ -130,15 +134,15 @@ def get_shot_comp(guesses, tactics):
     """
     gives a random shot for ai
     """
-    shootAi = "n"
-    while shootAi == "n":
+    shootai = "n"
+    while shootai == "n":
         try:
             if len(tactics) > 0:
                 shot = tactics[0]
             else:
                 shot = randrange(99)
             if shot not in guesses:
-                shootAi = "y"
+                shootai = "y"
                 guesses.append(shot)
                 break
         except:
@@ -272,7 +276,6 @@ def startgame():
     ships_sunk = []
     player_shots_fired = []
     missed1 = 0
-    tactics1 = []
     ship_position = []
     ship_position_ai = []
     ai_hit = []
@@ -293,10 +296,11 @@ def startgame():
     # loop
     for i in range(80):
 
-    # player shoots
+        # player shoots
         player_shots_fired = player_hit + player_miss + ships_sunk
         shot1 = get_shot(player_shots_fired)
-        ships1, player_hit, player_miss, ships_sunk, missed1 = check_shot(shot1, ships1, player_hit, player_miss, ships_sunk)
+        ships1, player_hit, player_miss, ships_sunk, missed1 = check_shot(
+            shot1, ships1, player_hit, player_miss, ships_sunk)
         show_board(player_hit, player_miss, ships_sunk)
     # repeat until ships empty
         if check_if_empty_2(ships1):
@@ -305,7 +309,8 @@ def startgame():
     # computer shoots
 
         shot2, ai_shots_fired = get_shot_comp(ai_shots_fired, tactics2)
-        ships2, ai_hit, ai_miss, ai_ships_sunk, missed2 = check_shot(shot2, ships2, ai_hit, ai_miss, ai_ships_sunk)
+        ships2, ai_hit, ai_miss, ai_ships_sunk, missed2 = check_shot(
+            shot2, ships2,ai_hit, ai_miss, ai_ships_sunk)
         show_board(ai_hit, ai_miss, ai_ships_sunk)
 
         if missed2 == 1:
