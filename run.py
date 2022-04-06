@@ -334,8 +334,6 @@ def startgame():
             tactics2.pop(0)
 
         if check_if_empty_2(ships2):
-            show_board(ai_hit, ai_miss, ai_ships_sunk)
-            show_board(player_hit, player_miss, ships_sunk, player)
             print("\n\nYou have Lost\n")
             print("Computer Won in", i, "turns")
             break
