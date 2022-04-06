@@ -297,15 +297,13 @@ def startgame():
     print("""\n\n
     Welcome to the Battleship game\n\n
     """)
-    print("""
-    Start by placing your own ships from the list below\n\n
-    """)
+    print("Start by placing your own ships from the list below\n")
     ships1, ship_position = create_boats(ship_position, battleships)
     # user creates the board for player 2 - show board
     ships2, ship_position_ai = create_ships(ship_position_ai, battleships)
     show_board_c(ship_position_ai)
     # loop
-    for i in range(80):
+    for i in range(100):
 
         # player shoots
         player_shots_fired = player_hit + player_miss + ships_sunk
@@ -315,7 +313,10 @@ def startgame():
 
     # repeat until ships empty
         if check_if_empty_2(ships1):
-            print("end of game - winner in", i)
+            show_board(ai_hit, ai_miss, ai_ships_sunk)
+            show_board(player_hit, player_miss, ships_sunk, player)
+            print("\n\nYou have Won\n")
+            print("You Won in", i, "Turns")
             break
     # computer shoots
 
@@ -333,7 +334,10 @@ def startgame():
             tactics2.pop(0)
 
         if check_if_empty_2(ships2):
-            print("end of game - computer wins", i)
+            show_board(ai_hit, ai_miss, ai_ships_sunk)
+            show_board(player_hit, player_miss, ships_sunk, player)
+            print("\n\nYou have Lost\n")
+            print("Computer Won in", i, "turns")
             break
 
 
