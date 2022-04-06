@@ -97,6 +97,12 @@ Basic def, while, if, for, try and variable combo.
 
 Most of the testing was done manualy by playing the game.
 
+Left 3 diffrent pep8 suggestions inside the code since i had no idea how to change those long lines of codes.
+
+- Left [variable missed1] inside code since function check_shot() returns a missed shot value. Is mainly used for AI to calculate a better shot next turn.
+- Left [ms-toolsai.jupyter extension is not synced, but not added in .gitpod.yml] inside it is not part of my code.
+- Left [Consider using enumerate instead of iterating with range and len] since i could not reduce the code to enumerate form.
+
 ## Panic Time
 
 Had to waste 3 days to get python to work on computer
@@ -113,9 +119,9 @@ No code breaking bugs remain
 
 - PEP8
 - contained lots of trailing whitespace that did not show up on visualstudio
-- do not use bare 'except'
-- missing whitespace after ','
-- Variable name "ch" doesn't conform to snake_case naming style
+- do not use bare 'except' added typeerror
+- missing whitespace after ',' fixed by deleting lines
+- Variable name "ch" doesn't conform to snake_case naming style fixed by changing name
 - Consider using enumerate instead of iterating with range and len
 - Unused variable 'missed1' if i deleted it code did not work.
 - No exception type(s) specified

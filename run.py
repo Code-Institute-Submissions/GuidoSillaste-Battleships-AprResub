@@ -1,8 +1,8 @@
 """
 Starting imports, does not work for some reason if one is removed
 """
-from random import randrange
-import random
+from random import randrange     # for def create_boats and def get_shot_comp
+import random       # needed since def calc_tactics is using it
 
 
 def check_ok(boat, ship_position):
@@ -10,8 +10,8 @@ def check_ok(boat, ship_position):
     Checks if it is taken,if it is in the grid and returns it if ok
     """
     boat.sort()
+    # Enumerating suggested
     for i in range(len(boat)):
-
         num = boat[i]
         if num in ship_position:
             boat = [-1]
@@ -41,9 +41,9 @@ def manual_ship_placement_ship(long, ship_position):
     while okey:
         ship = []
         # ask the user to enter numbers
-        print("\nPossible ship lengths 5, 4, 3, 2, 2\n")
+        print("\nPossible ship lengths 5, 4, 3, 3, 2, 2\n")
         print("Place your ship current length of", long)
-        for i in range(long):
+        for boat_num in range(long):
             boat_num = input("\nPlease enter a number from 00 - 99\n")
             ship.append(int(boat_num))
             show_board_c(ship)
@@ -121,10 +121,10 @@ def show_board_c(ai_ship_position):
     for x_row in range(10):
         row = ""
         for y_column in range(10):
-            grid_spot = " _ "
+            y_column = " _ "
             if place in ai_ship_position:
-                grid_spot = " o "
-            row = row + grid_spot
+                y_column = " o "
+            row = row + y_column
             place = place + 1
 
         print(x_row, " ", row)
@@ -165,14 +165,14 @@ def show_board(hit, miss, comp, player=True):
     for x_row in range(10):
         row = ""
         for y_column in range(10):
-            grid_spot = " _ "
+            y_column = " _ "
             if place in miss:
-                grid_spot = " x "
+                y_column = " x "
             elif place in hit:
-                grid_spot = " o "
+                y_column = " o "
             elif place in comp:
-                grid_spot = " O "
-            row = row + grid_spot
+                y_column = " O "
+            row = row + y_column
             place = place + 1
 
         print(x_row, " ", row)
@@ -183,6 +183,7 @@ def check_shot(shot, ships, hit, miss, comp):
     checks if you missed or hit a boat or destroyed one
     """
     missed = 0
+    # Enumerating suggested
     for i in range(len(ships)):
         if shot in ships[i]:
             ships[i].remove(shot)
@@ -233,6 +234,7 @@ def calc_tactics(shot, tactics, guesses, hit):
                     break
 
     computer_shot = []
+    # Enumerating suggested
     for i in range(len(temp)):
         if temp[i] not in guesses and temp[i] < 100 and temp[i] > -1:
             computer_shot.append(temp[i])
@@ -279,7 +281,7 @@ def startgame():
     player_miss = []
     ships_sunk = []
     player_shots_fired = []
-    missed1 = 0
+    missed1 = 0   # cant remove for fear of breaking game
     ship_position = []
     ship_position_ai = []
     ai_hit = []
@@ -292,6 +294,12 @@ def startgame():
     battleships = [5, 4, 3, 3, 2, 2]
     # game amount of ships
     # computer creates a board for player 1
+    print("""\n\n
+    Welcome to the Battleship game\n\n
+    """)
+    print("""
+    Start by placing your own ships from the list below\n\n
+    """)
     ships1, ship_position = create_boats(ship_position, battleships)
     # user creates the board for player 2 - show board
     ships2, ship_position_ai = create_ships(ship_position_ai, battleships)
