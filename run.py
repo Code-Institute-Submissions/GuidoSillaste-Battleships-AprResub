@@ -114,7 +114,7 @@ def show_board_c(ai_ship_position):
     """
     shows the board you made
     """
-    print("\n-----------Battleships-----------\n")
+    print("\n-----------Your battleships-----------\n")
     print("     0  1  2  3  4  5  6  7  8  9")
 
     place = 0
@@ -145,7 +145,7 @@ def get_shot_comp(guesses, tactics):
                 shootai = "y"
                 guesses.append(shot)
                 break
-        except:
+        except TypeError:
             print("incorrect entry - please enter again")
 
     return shot, guesses
@@ -155,7 +155,7 @@ def show_board(hit, miss, comp, player=True):
     """
     hidden board for you and computer
     """
-    if player == True:
+    if player is True:
         print("\n-----------Player Board-----------\n")
     else:
         print("\n-------------Ai Board-------------\n")
@@ -257,7 +257,7 @@ def get_shot(guesses):
             else:
                 shoot = "y"
                 break
-        except:
+        except TypeError:
             print("incorrect entry - please enter again")
 
     return shot
