@@ -37,12 +37,12 @@ def manual_ship_placement_ship(long, ship_position):
     checking if ok later.If not ok it repeats untill the current length is ok
     and then stores itin ship_position
     """
-    ok = True
-    while ok:
+    okey = True
+    while okey:
         ship = []
         # ask the user to enter numbers
-        print("\nPlace your ships\n")
-        print("enter your ship of length ", long)
+        print("\nPossible ship lengths 5, 4, 3, 2, 2\n")
+        print("Place your ship current length of", long)
         for i in range(long):
             boat_num = input("\nPlease enter a number from 00 - 99\n")
             ship.append(int(boat_num))
@@ -72,22 +72,22 @@ def create_ships(ship_position, battleships):
     return ships, ship_position
 
 
-def check_boat(b, start, dirn, ship_position):
+def check_boat(boats, start, dirn, ship_position):
     """
     sets a random direction for boats
     """
     boat = []
     if dirn == 1:
-        for i in range(b):
+        for i in range(boats):
             boat.append(start - i*10)
     elif dirn == 2:
-        for i in range(b):
+        for i in range(boats):
             boat.append(start + i)
     elif dirn == 3:
-        for i in range(b):
+        for i in range(boats):
             boat.append(start + i*10)
     elif dirn == 4:
-        for i in range(b):
+        for i in range(boats):
             boat.append(start - i)
     boat = check_ok(boat, ship_position)
     return boat
@@ -98,12 +98,12 @@ def create_boats(ship_position, battleships):
     creates a random boat whit random direction
     """
     ships = []
-    for b in battleships:
+    for boats in battleships:
         boat = [-1]
         while boat[0] == -1:
             boat_start = randrange(99)
             boat_direction = randrange(1, 4)
-            boat = check_boat(b, boat_start, boat_direction, ship_position)
+            boat = check_boat(boats, boat_start, boat_direction, ship_position)
         ships.append(boat)
         ship_position = ship_position + boat
 
@@ -114,20 +114,20 @@ def show_board_c(ai_ship_position):
     """
     shows the board you made
     """
-    print("\n-----------battleships-----------\n")
+    print("\n-----------Battleships-----------\n")
     print("     0  1  2  3  4  5  6  7  8  9")
 
     place = 0
-    for x in range(10):
+    for x_row in range(10):
         row = ""
-        for y in range(10):
-            ch = " _ "
+        for y_column in range(10):
+            grid_spot = " _ "
             if place in ai_ship_position:
-                ch = " o "
-            row = row + ch
+                grid_spot = " o "
+            row = row + grid_spot
             place = place + 1
 
-        print(x, " ", row)
+        print(x_row, " ", row)
 
 
 def get_shot_comp(guesses, tactics):
@@ -151,27 +151,31 @@ def get_shot_comp(guesses, tactics):
     return shot, guesses
 
 
-def show_board(hit, miss, comp):
+def show_board(hit, miss, comp, player=True):
     """
     hidden board for you and computer
     """
-    print("\n-----------battleships-----------\n")
+    if player == True:
+        print("\n-----------Player Board-----------\n")
+    else:
+        print("\n-------------Ai Board-------------\n")
+
     print("     0  1  2  3  4  5  6  7  8  9")
     place = 0
-    for x in range(10):
+    for x_row in range(10):
         row = ""
-        for y in range(10):
-            ch = " _ "
+        for y_column in range(10):
+            grid_spot = " _ "
             if place in miss:
-                ch = " x "
+                grid_spot = " x "
             elif place in hit:
-                ch = " o "
+                grid_spot = " o "
             elif place in comp:
-                ch = " O "
-            row = row + ch
+                grid_spot = " O "
+            row = row + grid_spot
             place = place + 1
 
-        print(x, " ", row)
+        print(x_row, " ", row)
 
 
 def check_shot(shot, ships, hit, miss, comp):
@@ -197,7 +201,7 @@ def check_shot(shot, ships, hit, miss, comp):
 def calc_tactics(shot, tactics, guesses, hit):
 
     """
-    increased computer difficulty playsa bit smarter
+    increased computer difficulty plays a bit smarter
     """
     temp = []
     if len(tactics) < 1:
@@ -284,7 +288,7 @@ def startgame():
     ai_shots_fired = []
     missed2 = 0
     tactics2 = []
-
+    player = False
     battleships = [5, 4, 3, 3, 2, 2]
     # game amount of ships
     # computer creates a board for player 1
@@ -292,7 +296,6 @@ def startgame():
     # user creates the board for player 2 - show board
     ships2, ship_position_ai = create_ships(ship_position_ai, battleships)
     show_board_c(ship_position_ai)
-
     # loop
     for i in range(80):
 
@@ -301,7 +304,7 @@ def startgame():
         shot1 = get_shot(player_shots_fired)
         ships1, player_hit, player_miss, ships_sunk, missed1 = check_shot(
             shot1, ships1, player_hit, player_miss, ships_sunk)
-        show_board(player_hit, player_miss, ships_sunk)
+
     # repeat until ships empty
         if check_if_empty_2(ships1):
             print("end of game - winner in", i)
@@ -310,8 +313,9 @@ def startgame():
 
         shot2, ai_shots_fired = get_shot_comp(ai_shots_fired, tactics2)
         ships2, ai_hit, ai_miss, ai_ships_sunk, missed2 = check_shot(
-            shot2, ships2,ai_hit, ai_miss, ai_ships_sunk)
+            shot2, ships2, ai_hit, ai_miss, ai_ships_sunk)
         show_board(ai_hit, ai_miss, ai_ships_sunk)
+        show_board(player_hit, player_miss, ships_sunk, player)
 
         if missed2 == 1:
             tactics2 = calc_tactics(shot2, tactics2, ai_shots_fired, ai_hit)
