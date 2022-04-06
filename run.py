@@ -5,30 +5,18 @@ from random import randrange     # for def create_boats and def get_shot_comp
 import random       # needed since def calc_tactics is using it
 
 
-def check_ok(boat, ship_position):
+def create_ships(ship_position, battleships):
     """
-    Checks if it is taken,if it is in the grid and returns it if ok
+    gives the length of ships from battleships
     """
-    boat.sort()
-    # Enumerating suggested
-    for i in range(len(boat)):
-        num = boat[i]
-        if num in ship_position:
-            boat = [-1]
-            break
-        elif num < 0 or num > 99:
-            boat = [-1]
-            break
-        elif num % 10 == 9 and i < len(boat)-1:
-            if boat[i+1] % 10 == 0:
-                boat = [-1]
-                break
-        if i != 0:
-            if boat[i] != boat[i-1]+1 and boat[i] != boat[i-1]+10:
-                boat = [-1]
-                break
+    ships = []
 
-    return boat
+    for boat_length in battleships:
+        ship, ship_position = manual_ship_placement_ship(
+            boat_length, ship_position)
+        ships.append(ship)
+
+    return ships, ship_position
 
 
 def manual_ship_placement_ship(long, ship_position):
@@ -58,16 +46,45 @@ def manual_ship_placement_ship(long, ship_position):
     return ship, ship_position
 
 
-def create_ships(ship_position, battleships):
+def check_ok(boat, ship_position):
     """
-    gives the length of ships from battleships
+    Checks if it is taken,if it is in the grid and returns it if ok
+    """
+    boat.sort()
+    # Enumerating suggested
+    for i in range(len(boat)):
+        num = boat[i]
+        if num in ship_position:
+            boat = [-1]
+            break
+        elif num < 0 or num > 99:
+            boat = [-1]
+            break
+        elif num % 10 == 9 and i < len(boat)-1:
+            if boat[i+1] % 10 == 0:
+                boat = [-1]
+                break
+        if i != 0:
+            if boat[i] != boat[i-1]+1 and boat[i] != boat[i-1]+10:
+                boat = [-1]
+                break
+
+    return boat
+
+
+def create_boats(ship_position, battleships):
+    """
+    creates a random boat whit random direction
     """
     ships = []
-
-    for boat_length in battleships:
-        ship, ship_position = manual_ship_placement_ship(
-            boat_length, ship_position)
-        ships.append(ship)
+    for boats in battleships:
+        boat = [-1]
+        while boat[0] == -1:
+            boat_start = randrange(99)
+            boat_direction = randrange(1, 4)
+            boat = check_boat(boats, boat_start, boat_direction, ship_position)
+        ships.append(boat)
+        ship_position = ship_position + boat
 
     return ships, ship_position
 
@@ -93,23 +110,6 @@ def check_boat(boats, start, dirn, ship_position):
     return boat
 
 
-def create_boats(ship_position, battleships):
-    """
-    creates a random boat whit random direction
-    """
-    ships = []
-    for boats in battleships:
-        boat = [-1]
-        while boat[0] == -1:
-            boat_start = randrange(99)
-            boat_direction = randrange(1, 4)
-            boat = check_boat(boats, boat_start, boat_direction, ship_position)
-        ships.append(boat)
-        ship_position = ship_position + boat
-
-    return ships, ship_position
-
-
 def show_board_c(ai_ship_position):
     """
     shows the board you made
@@ -128,27 +128,6 @@ def show_board_c(ai_ship_position):
             place = place + 1
 
         print(x_row, " ", row)
-
-
-def get_shot_comp(guesses, tactics):
-    """
-    gives a random shot for ai
-    """
-    shootai = "n"
-    while shootai == "n":
-        try:
-            if len(tactics) > 0:
-                shot = tactics[0]
-            else:
-                shot = randrange(99)
-            if shot not in guesses:
-                shootai = "y"
-                guesses.append(shot)
-                break
-        except TypeError:
-            print("incorrect entry - please enter again")
-
-    return shot, guesses
 
 
 def show_board(hit, miss, comp, player=True):
@@ -241,6 +220,27 @@ def calc_tactics(shot, tactics, guesses, hit):
     random.shuffle(computer_shot)
 
     return computer_shot
+
+
+def get_shot_comp(guesses, tactics):
+    """
+    gives a random shot for ai
+    """
+    shootai = "n"
+    while shootai == "n":
+        try:
+            if len(tactics) > 0:
+                shot = tactics[0]
+            else:
+                shot = randrange(99)
+            if shot not in guesses:
+                shootai = "y"
+                guesses.append(shot)
+                break
+        except TypeError:
+            print("incorrect entry - please enter again")
+
+    return shot, guesses
 
 
 def get_shot(guesses):

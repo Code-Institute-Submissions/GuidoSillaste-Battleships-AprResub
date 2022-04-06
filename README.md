@@ -24,7 +24,7 @@ Once all ships sank for either you or computer the game is over.
 
 The Bad Battleship game is a old classic game brought to life whit limited python skills inside a terminal.
 
-![Flow Chart]()
+![Flow Chart](assets/flowchart/Flowchart.png)
 
 ### External users goal
 
@@ -35,16 +35,6 @@ The Bad Battleship game is a old classic game brought to life whit limited pytho
 - The Battleships game is played on grids on which each player's fleet of battleships are marked. The locations of the fleets are concealed from the other player. Players call shots at the other player's ships, and the objective of the game is to destroy the opposing player's fleet.
 - The application provides a working battleships game for a single user to play against the computer .e.g.
 - To Test my skills
-
-### User Stories
-
-As a new and returning user, I want to...
-
-    - Know the theme of the game as soon as I navigate to the landing page.
-    - I want to be able to interact with the game. 
-    - I want it to feel more personal with choices only I can make.
-    - I want to be able to distinguish between the choices I must make in the game.
-    - Have an interesting and in-depth storyline.
 
 ## Features
 
