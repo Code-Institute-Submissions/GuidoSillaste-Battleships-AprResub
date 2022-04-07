@@ -1,13 +1,9 @@
-"""
-Starting imports, does not work for some reason if one is removed
-"""
-from random import randrange     # for def create_boats and def get_shot_comp
-import random       # needed since def calc_tactics is using it
+import random       # needed for random numbers
 
 
 def create_ships(ship_position, battleships):
     """
-    gives the length of ships from battleships
+    First function to run when starting to place player ships
     """
     ships = []
 
@@ -21,6 +17,7 @@ def create_ships(ship_position, battleships):
 
 def manual_ship_placement_ship(long, ship_position):
     """
+    Second function to run to place player ships
     Shows the length of the ship you need to set and asks for its spot while
     checking if ok later.If not ok it repeats untill the current length is ok
     and then stores itin ship_position
@@ -48,7 +45,8 @@ def manual_ship_placement_ship(long, ship_position):
 
 def check_ok(boat, ship_position):
     """
-    Checks if it is taken,if it is in the grid and returns it if ok
+    Third function to run to check if player ships are on grid
+    or computer randomly generated are on grid
     """
     boat.sort()
     # Enumerating suggested
@@ -74,14 +72,15 @@ def check_ok(boat, ship_position):
 
 def create_boats(ship_position, battleships):
     """
-    creates a random boat whit random direction
+    First function to generate computer ships randomly by giving it a
+    starting tile and a starting direction
     """
     ships = []
     for boats in battleships:
         boat = [-1]
         while boat[0] == -1:
-            boat_start = randrange(99)
-            boat_direction = randrange(1, 4)
+            boat_start = random.randrange(99)
+            boat_direction = random.randrange(1, 4)
             boat = check_boat(boats, boat_start, boat_direction, ship_position)
         ships.append(boat)
         ship_position = ship_position + boat
@@ -89,21 +88,23 @@ def create_boats(ship_position, battleships):
     return ships, ship_position
 
 
-def check_boat(boats, start, dirn, ship_position):
+def check_boat(boats, start, direction, ship_position):
     """
-    sets a random direction for boats
+    Takes the computer ships random direction and starting point and adds the
+    remaining tiles for battleship length .After that it runs check ok function
+    to check if it is taken or off grid
     """
     boat = []
-    if dirn == 1:
+    if direction == 1:
         for i in range(boats):
             boat.append(start - i*10)
-    elif dirn == 2:
+    elif direction == 2:
         for i in range(boats):
             boat.append(start + i)
-    elif dirn == 3:
+    elif direction == 3:
         for i in range(boats):
             boat.append(start + i*10)
-    elif dirn == 4:
+    elif direction == 4:
         for i in range(boats):
             boat.append(start - i)
     boat = check_ok(boat, ship_position)
@@ -112,7 +113,7 @@ def check_boat(boats, start, dirn, ship_position):
 
 def show_board_c(ai_ship_position):
     """
-    shows the board you made
+    shows the board while your making it for better placement
     """
     print("\n-----------Your battleships-----------\n")
     print("     0  1  2  3  4  5  6  7  8  9")
@@ -157,25 +158,47 @@ def show_board(hit, miss, comp, player=True):
         print(x_row, " ", row)
 
 
-def check_shot(shot, ships, hit, miss, comp):
+def get_shot_comp(guesses, tactics):
     """
-    checks if you missed or hit a boat or destroyed one
+    gives a random shot for ai
     """
-    missed = 0
-    # Enumerating suggested
-    for i in range(len(ships)):
-        if shot in ships[i]:
-            ships[i].remove(shot)
-            if len(ships[i]) > 0:
-                hit.append(shot)
-                missed = 1
+    shootai = "n"
+    while shootai == "n":
+        try:
+            if len(tactics) > 0:
+                shot = tactics[0]
             else:
-                comp.append(shot)
-                missed = 2
-    if missed == 0:
-        miss.append(shot)
+                shot = random.randrange(99)
+            if shot not in guesses:
+                shootai = "y"
+                guesses.append(shot)
+                break
+        except TypeError:
+            print("incorrect entry - please enter again")
 
-    return ships, hit, miss, comp, missed
+    return shot, guesses
+
+
+def get_shot(guesses):
+    """
+    gets your shot and checks if correct
+    """
+    shoot = "n"
+    while shoot == "n":
+        try:
+            shot = input("\nplease enter your guess")
+            shot = int(shot)
+            if shot < 0 or shot > 99:
+                print("incorrect number, shot is outside the board")
+            elif shot in guesses:
+                print("incorrect number, used before")
+            else:
+                shoot = "y"
+                break
+        except TypeError:
+            print("incorrect entry - please enter again")
+
+    return shot
 
 
 def calc_tactics(shot, tactics, guesses, hit):
@@ -222,47 +245,25 @@ def calc_tactics(shot, tactics, guesses, hit):
     return computer_shot
 
 
-def get_shot_comp(guesses, tactics):
+def check_shot(shot, ships, hit, miss, comp):
     """
-    gives a random shot for ai
+    checks if you missed or hit a boat or destroyed one
     """
-    shootai = "n"
-    while shootai == "n":
-        try:
-            if len(tactics) > 0:
-                shot = tactics[0]
+    missed = 0
+    # Enumerating suggested
+    for i in range(len(ships)):
+        if shot in ships[i]:
+            ships[i].remove(shot)
+            if len(ships[i]) > 0:
+                hit.append(shot)
+                missed = 1
             else:
-                shot = randrange(99)
-            if shot not in guesses:
-                shootai = "y"
-                guesses.append(shot)
-                break
-        except TypeError:
-            print("incorrect entry - please enter again")
+                comp.append(shot)
+                missed = 2
+    if missed == 0:
+        miss.append(shot)
 
-    return shot, guesses
-
-
-def get_shot(guesses):
-    """
-    gets your shot and checks if correct
-    """
-    shoot = "n"
-    while shoot == "n":
-        try:
-            shot = input("\nplease enter your guess")
-            shot = int(shot)
-            if shot < 0 or shot > 99:
-                print("incorrect number, shot is outside the board")
-            elif shot in guesses:
-                print("incorrect number, used before")
-            else:
-                shoot = "y"
-                break
-        except TypeError:
-            print("incorrect entry - please enter again")
-
-    return shot
+    return ships, hit, miss, comp, missed
 
 
 def check_if_empty_2(list_of_lists):

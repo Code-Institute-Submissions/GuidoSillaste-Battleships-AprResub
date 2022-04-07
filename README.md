@@ -24,6 +24,26 @@ Once all ships sank for either you or computer the game is over.
 
 The Bad Battleship game is a old classic game brought to life whit limited python skills inside a terminal.
 
+Before i started to create Battleship game i went through 6 battleship tutorials. From that i learned i had no idea how to build class based so went whit function based.
+To save gitpod time which is 50 hours i tried to use vs code whit python installed which did not end well. In the end got it working after many erros which made no sense.
+
+After i got the code editor working i wrote down all the functions i need:
+
+1. create ship
+2. place ship
+3. check if ship in grid
+4. create computer random ship
+5. place ship in random direction
+6. show player grid
+7. hide computer grid
+8. get player shot
+9. check if shot ok
+10. get computer shot
+11. add tactics to computer so he shoots smarter
+12. check if game over
+13. main function to store and run functions
+
+After main flow is decided i choose to use the random library since it gets me a random number.
 ![Flow Chart](assets/flowchart/Flowchart.png)
 
 ### External users goal
@@ -41,10 +61,12 @@ The Bad Battleship game is a old classic game brought to life whit limited pytho
 ### Home Page
 
 The home page is the only page on the application. The terminal design was created and given to me by Code Institue.
+No Style was added since did know which library to look for.
+
 Few exsisting features:
 
-- You can choose your board
-- Computer board is generated randomly
+- You can choose your battleship placements
+- Computer ships are generated randomly
 - ships are hidden
 - can only play against computer
 - Accepts user input
@@ -55,7 +77,7 @@ Few exsisting features:
 ### Future features
 
 - turn to class based
-- add secound player
+- add second player
 - show scores
 - show if ship is sunk and if you hit it
 - Create better UI
@@ -85,13 +107,16 @@ Basic def, while, if, for, try and variable combo.
 
 ## Testing
 
-Most of the testing was done manualy by playing the game.
+Most of the testing was done manualy by playing the game. Game ran and did not break for my limited understanding.
+Libarary was changed since i found out VS CODE function named "Go to definition" ,which i used to find out the necessary method names.
 
-Left 3 diffrent pep8 suggestions inside the code since i had no idea how to change those long lines of codes.
+Truly no guidance on the tools needed make the project resulted in this error.
 
-- Left [variable missed1] inside code since function check_shot() returns a missed shot value. Is mainly used for AI to calculate a better shot next turn.
-- Left [ms-toolsai.jupyter extension is not synced, but not added in .gitpod.yml] inside it is not part of my code.
-- Left [Consider using enumerate instead of iterating with range and len] since i could not reduce the code to enumerate form.
+## Fixing Failed Project
+
+Most Project 3 feedbacks were fixed
+
+Game was changed little for fear that adding one might break the other.
 
 ## Panic Time
 
@@ -107,7 +132,8 @@ No code breaking bugs remain
 
 ### Validator testing
 
-- PEP8
+PEP8  validation results when first ran:
+
 - contained lots of trailing whitespace that did not show up on visualstudio
 - do not use bare 'except' added typeerror
 - missing whitespace after ',' fixed by deleting lines
@@ -117,9 +143,15 @@ No code breaking bugs remain
 - No exception type(s) specified
 - ms-toolsai.jupyter extension is not synced, but not added in .gitpod.yml <-- no idea why this is here.
 
+Left 3 diffrent pep8 suggestions inside the code since i had no idea how to change those long lines of codes.
+
+- Left [variable missed1] inside code since function check_shot() returns a missed shot value. Is mainly used for AI to calculate a better shot next turn.
+- Left [ms-toolsai.jupyter extension is not synced, but not added in .gitpod.yml] inside it is not part of my code.
+- Left [Consider using enumerate instead of iterating with range and len] since i could not reduce the code to enumerate form.
+
 ## Deployment
 
-This project static was stored on github and deployed on heroku whit code institute javascript and nodej.
+This project static was stored on github and deployed on heroku whit [Code Institute Python Essentials Template](https://github.com/Code-Institute-Org/python-essentials-template).
 
 1. Login or Sign Up to [GitHub](https://github.com/login "Link to GitHub login page")
 2. Create a new repository.
@@ -147,3 +179,4 @@ Heroku section.
 - lots of slackoverflow(was not very usefull) reading
 - gitpod projects to see how python classes work(could not find a basic class one)
 - especially a single youtube videos
+- Self taught whit no help from others. Makes me wonder where my tuition fee went.
