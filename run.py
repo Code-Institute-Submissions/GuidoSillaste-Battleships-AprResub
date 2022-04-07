@@ -1,4 +1,7 @@
-import random       # needed for random numbers
+"""
+Need this library for random numbers
+"""
+import random
 
 
 def create_ships(ship_position, battleships):

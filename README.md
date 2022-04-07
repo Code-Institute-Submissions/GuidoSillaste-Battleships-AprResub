@@ -115,7 +115,6 @@ Truly no guidance on the tools needed made the project a lot more difficult ,whi
 'I can easly see what game it is.'
 ![Title](assets/images/starting.png)
 
-
 'Game is working and your ships can be seen.'
 ![Name choice](assets/images/battleing.png)
 
