@@ -135,8 +135,6 @@ Had to waste 3 days to get python to work on computer
 
 2 many errors every last function was like hell other then the if,elif and else
 
-None of the bugs i tried to fix were fixed
-
 No code breaking bugs remain
 
 ### Validator testing
