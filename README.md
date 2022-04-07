@@ -103,7 +103,21 @@ Throughout the planning, design, testing, and deployment of the website, I have 
 
 ## Data Model
 
-Basic def, while, if, for, try and variable combo.
+Project has 13 function.
+
+- def create_ships() , which takes 2 arguments. First being ship position and second a list of battleships. It has 1 for that calls def manual_ship_placement_ship() for each ship in the list of battleships.
+- def manual_ship_placement_ship() , which takes 2 arguments. First being battleships and second ship position. It has a while loop untill the battleship passes the def check_ok() then it breaks and returns value to def create_ships().\
+- def check_ok() this function contains a large for loop that contains many if and elif for checking if ship is inside the grid and if it is in a single straight.
+- def create_boats() is similar to create_ships() ,but takes randrange from imported random to have a random starting tile and a random direction. After that it connects to def check_boat().
+- def check_boat() which takes 4 arguments boat length, staring tile, direction and ship position. Whit that it uses if and for to add the remaining tiles for each AI battleship. Connest to def check_ok() to see if it passes.
+- def show_board_c() shows the player ships when adding ships manually.
+- def show_board() takes 4 arguments for hit, miss, ships_sunk, and a default player=True. This shows the main playing field is hidden from both players.
+- def get_shot_comp() takes 2 arguments for shots allready fired and suggested shot.
+- def get_shot() takes only 1 argument. Takes your input and checks if it is valid or not then stores value in shot1.
+- def calc_tactics() takes 4 arguments for current shot, last tactis, shot fired and shots that hit. Calculates next shot based on if the shot hit 2 times in a row and is the ship sunk. If no more hits in a row it will go back to random untill it finds new ship.
+- def check_shot() takes 5 arguments for current shot, ships, previous hits, previous misses and sunken ships. Return if it is hit, miss or sunken a ship. For AI it also return missed value which is used to trigger calc_tactics().
+- def check_if_empty_2() takes 1 arguemnt for Battleships. Checks whether all ships are sunken or not.
+- def startgame() has no arguments but holds all the variables and triggers the functions.
 
 ## Testing
 
