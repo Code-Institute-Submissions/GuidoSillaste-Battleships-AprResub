@@ -110,7 +110,17 @@ Basic def, while, if, for, try and variable combo.
 Most of the testing was done manualy by playing the game. Game ran and did not break for my limited understanding.
 Libarary was changed since i found out VS CODE function named "Go to definition" ,which i used to find out the necessary method names.
 
-Truly no guidance on the tools needed make the project resulted in this error.
+Truly no guidance on the tools needed made the project a lot more difficult ,which resulted in this error.
+
+'I can easly see what game it is.'
+![Title](assets/images/starting.png)
+
+
+'Game is working and your ships can be seen.'
+![Name choice](assets/images/battleing.png)
+
+'Game ending works alltough guide crude.'
+![Player Choice](assets/images/ending.png)
 
 ## Fixing Failed Project
 
